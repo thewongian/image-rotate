@@ -22,8 +22,16 @@ public class TouchListener implements View.OnTouchListener {
         return false;
     }
 
-    private class MyGestureListener implements GestureDetector.OnGestureListener {
+    private class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
 
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return super.onDown(e);
+        }
 
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            return super.onFling(e1, e2, velocityX, velocityY);
+        }
     }
 }
