@@ -3,6 +3,8 @@ package com.example.imagerotate;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         toCamera = (Button) findViewById(R.id.toCamera);
         image = (ImageView) findViewById(R.id.imageView);
+        toCamera.setOnClickListener(this);
 
     }
 
@@ -32,5 +35,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap thumbnail = (Bitmap) extras.get("data");
+            image.setBackground(new BitmapDrawable(getResources(), thumbnail));
+            //myCanvas.setBackground(new BitmapDrawable(getResources(), thumbnail));
+        }
     }
 }
